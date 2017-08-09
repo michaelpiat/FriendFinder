@@ -147,3 +147,37 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+	
+$("#submitQ").on("click", function(event){
+
+	var userInfo = {
+		name: $("#userName").val(),
+		photo: $("#userPhoto").val(),
+		scores: [
+		$("#q1").val(),$("#q2").val(),$("#q3").val(),$("#q4").val(),$("#q5").val(),$("#q6").val(),$("#q7").val(),$("#q8").val(),$("#q9").val(),$("#q10").val(),
+		]
+	}
+
+	$.post("http://localhost:3000/api/friends", userInfo)
+	.done(function(data){
+		console.log(data);
+		alert("Sweet!")
+	});
+
+	
+
+});
+
+
+
+
+
+
+
+
+
+
+
+</script>
