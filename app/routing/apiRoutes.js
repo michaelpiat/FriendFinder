@@ -1,6 +1,6 @@
 var path = require("path");
 
-var friendsArray = require("../data/friends");
+var friendsArray = require("../data/friends.js");
 
 
 
@@ -12,33 +12,34 @@ module.exports = function(app) {
 
 	app.post("/api/friends", function(req, res){
 		
-		var newUser = req.body;
-		var userScores = newUser.scores;
-
 		var newMatch = {
 			name: "",
 			photo: "",
-			differenceLevel: 0;
+			differenceLevel: 1000
 		};
 
 
-		var totalDifference = 0;
+		var newUser = req.body;
+		var userScores = newUser.scores;
+
+		
 
 		for(var i = 0; i < friendsArray.length; i++) {
 
-			totalDifference = 0;
+			var totalDifference = 0;
 
-			for (var j = 0; j < friendsArray[i].score; j++) {
+			for (var j = 0; j < userScores.length; j++) {
 
-				totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friendsArray[i].scores[j]));
-
+				totalDifference += Math.abs(friendsArray[i].scores[j] - userScores[j]);
+					
+			}	
 				if (totalDifference <= newMatch.differenceLevel) {
 
 					newMatch.name = friendsArray[i].name;
 					newMatch.photo = friendsArray[i].photo;
 					newMatch.differenceLevel = totalDifference;
 				}
-			}
+				
 		}
 		
 		friendsArray.push(newUser);
